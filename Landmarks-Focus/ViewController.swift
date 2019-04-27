@@ -17,8 +17,11 @@ class ViewController: UIViewController {
     var appState: appState = .selectingTime
     
     @IBOutlet weak var sliderView: UIView!
+    @IBOutlet weak var timeLabel: UILabel!
     
     var userIsMovingSlider: Bool = false
+    
+    var sliderDivitionsPositions = [CGFloat]()
     
     
     lazy var sliderArrow: UIImageView = {
@@ -78,13 +81,15 @@ class ViewController: UIViewController {
         sliderView.layer.addSublayer(bottomCircleLayer)
         
         
-        let numberOfDivitionsInSlider = 5
+        let numberOfDivitionsInSlider = 6
         let divitionHeight = sliderView.frame.height / CGFloat(numberOfDivitionsInSlider)
         let divitionLenght = CGFloat(10)
         
         for divition in 1..<numberOfDivitionsInSlider {
             let sliderDivitionPath = UIBezierPath()
             let divitionHeightPosition = CGFloat(divition) * divitionHeight
+            
+            sliderDivitionsPositions.append(divitionHeightPosition)
             
             sliderDivitionPath.move(to: CGPoint(x: sliderCenterXPosition - divitionLenght, y: divitionHeightPosition))
             sliderDivitionPath.addLine(to: CGPoint(x: sliderCenterXPosition + divitionLenght, y: divitionHeightPosition))
@@ -120,8 +125,50 @@ class ViewController: UIViewController {
             centerYPosition = sliderView.frame.height
         }
         
-        
+        calculateTimeForSliderArrow(position: centerYPosition)
         sliderArrow.center = CGPoint(x: centerXPosition, y: centerYPosition)
+    }
+    
+    func calculateTimeForSliderArrow(position: CGFloat){
+        let maximumPossibleTimeInSeconds:Int = 10_800
+        let variation = CGFloat(3)
+        
+        var timePosition: CGFloat = position
+        
+        var sliderDivitionsPositionsSorted = sliderDivitionsPositions.sorted()
+        
+        sliderDivitionsPositionsSorted.insert(0, at: 0)
+        sliderDivitionsPositionsSorted.insert(sliderView.frame.height, at: sliderDivitionsPositionsSorted.count - 1)
+        
+        var closestDivition: CGFloat = sliderDivitionsPositionsSorted[0]
+        
+        for divition in sliderDivitionsPositionsSorted {
+            if abs(position - divition) < abs(position - closestDivition){
+                closestDivition = divition
+            }
+        }
+        
+        if closestDivition - variation ... closestDivition + variation ~= position {
+            timePosition = closestDivition
+        }
+        
+        timePosition = abs(timePosition - sliderView.frame.height)
+
+        let timeForPositionInSeconds = Int(CGFloat(timePosition) * CGFloat(maximumPossibleTimeInSeconds) / sliderView.frame.height)
+        
+        timeLabel.text = secondsToHoursMinutesSeconds(seconds: timeForPositionInSeconds)
+        
+        
+        
+    }
+    
+    func secondsToHoursMinutesSeconds (seconds : Int) -> String {
+        let formatter = DateComponentsFormatter()
+        formatter.allowedUnits = [.hour, .minute, .second]
+        formatter.unitsStyle = .positional
+        
+        return  formatter.string(from: TimeInterval(seconds))!
+
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
