@@ -46,7 +46,7 @@ class ViewController: UIViewController {
         let sliderCenterXPosition = sliderView.frame.width / 2 - lineWidth / 2
         
         linePath.move(to: CGPoint(x: sliderCenterXPosition, y: 0))
-        linePath.addLine(to: CGPoint(x: sliderView.frame.width / 2 - lineWidth / 2, y: sliderView.frame.height))
+        linePath.addLine(to: CGPoint(x: sliderCenterXPosition, y: sliderView.frame.height))
         
         let lineLayer = CAShapeLayer()
         
