@@ -85,6 +85,12 @@ class ViewController: UIViewController {
         let divitionHeight = sliderView.frame.height / CGFloat(numberOfDivitionsInSlider)
         let divitionLenght = CGFloat(10)
         
+        let numberOfSubdivitionsInSliderDivition = 2
+        let subdivitionHeight = divitionHeight / CGFloat(numberOfSubdivitionsInSliderDivition)
+        let subdivitionLenght = CGFloat(5)
+        let subdivitionLineWidth = CGFloat(2.5)
+        
+        
         for divition in 1..<numberOfDivitionsInSlider {
             let sliderDivitionPath = UIBezierPath()
             let divitionHeightPosition = CGFloat(divition) * divitionHeight
@@ -101,11 +107,28 @@ class ViewController: UIViewController {
             
             sliderView.layer.addSublayer(divitionLayer)
             
-            
         }
         
-        
-        
+        for divition in 0..<numberOfDivitionsInSlider {
+            let actualDivitionPosition = sliderView.frame.height - (CGFloat(divition) * divitionHeight)
+            
+            for subdivition in 1...numberOfSubdivitionsInSliderDivition {
+                let actualSubdivitionPosition = actualDivitionPosition - (CGFloat(subdivition) * subdivitionHeight)
+                sliderDivitionsPositions.append(actualSubdivitionPosition)
+                
+                let subdivitionPath = UIBezierPath()
+                subdivitionPath.move(to: CGPoint(x: sliderCenterXPosition - subdivitionLenght, y: actualSubdivitionPosition))
+                subdivitionPath.addLine(to: CGPoint(x: sliderCenterXPosition + subdivitionLenght, y: actualSubdivitionPosition))
+                
+                let subdivitionLayer = CAShapeLayer()
+                subdivitionLayer.path = subdivitionPath.cgPath
+                subdivitionLayer.strokeColor = UIColor.black.cgColor
+                subdivitionLayer.lineWidth = subdivitionLineWidth
+                
+                sliderView.layer.addSublayer(subdivitionLayer)
+                
+            }
+        }
         
     }
     
