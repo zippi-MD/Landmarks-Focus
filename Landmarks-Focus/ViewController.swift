@@ -22,6 +22,7 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var sliderView: UIView!
     @IBOutlet weak var timeLabel: UILabel!
+    @IBOutlet weak var startButtonView: UIView!
     
     let selectingTimeText = "Selecciona cuanto tiempo deseas concentrarte..."
     
