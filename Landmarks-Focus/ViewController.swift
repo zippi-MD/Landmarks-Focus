@@ -189,6 +189,17 @@ class ViewController: UIViewController {
         
     }
     
+    func sendHapticFeedback(intensity: feedbackResponseStreght){
+        switch intensity {
+        case .light:
+            let generator = UISelectionFeedbackGenerator()
+            generator.selectionChanged()
+        case .strong:
+            let generator = UIImpactFeedbackGenerator(style: .heavy)
+            generator.impactOccurred()
+        }
+    }
+    
     func secondsToHoursMinutesSeconds (seconds : Int) -> String {
         let formatter = DateComponentsFormatter()
         formatter.allowedUnits = [.hour, .minute, .second]
