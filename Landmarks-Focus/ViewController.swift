@@ -44,6 +44,13 @@ class ViewController: UIViewController {
         super.viewDidLoad()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        
+        startButtonView.isHidden = true
+        startButtonView.alpha = 0
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
         setupSlider()
@@ -205,10 +212,22 @@ class ViewController: UIViewController {
         let timeForPositionInSeconds = Int(CGFloat(timePosition) * CGFloat(maximumPossibleTimeInSeconds) / sliderView.frame.height)
         
         if timeForPositionInSeconds == 0 {
+            
+            UIView.animate(withDuration: 0.2) {
+                self.startButtonView.alpha = 0
+            }
+            
             timeLabel.font = UIFont.boldSystemFont(ofSize: 20)
             timeLabel.text = selectingTimeText
         }
         else {
+            
+            startButtonView.isHidden = false
+            
+            UIView.animate(withDuration: 0.2) {
+                self.startButtonView.alpha = 1
+            }
+            
             timeLabel.font = UIFont.boldSystemFont(ofSize: 45)
             timeLabel.text = secondsToHoursMinutesSeconds(seconds: timeForPositionInSeconds)
         }
