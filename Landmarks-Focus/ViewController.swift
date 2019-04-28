@@ -12,6 +12,10 @@ enum appState {
     case selectingTime, countdown
 }
 
+enum feedbackResponseStreght {
+    case light, strong
+}
+
 class ViewController: UIViewController {
 
     var appState: appState = .selectingTime
