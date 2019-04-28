@@ -26,6 +26,9 @@ class ViewController: UIViewController {
     var userIsMovingSlider: Bool = false
     
     var sliderDivitionsPositions = [CGFloat]()
+    var sliderSubdivitionsPositions = [CGFloat]()
+    
+    var lastHapticFeedbackSendedForValue: CGFloat = 0
     
     
     lazy var sliderArrow: UIImageView = {
@@ -118,7 +121,7 @@ class ViewController: UIViewController {
             
             for subdivition in 1...numberOfSubdivitionsInSliderDivition {
                 let actualSubdivitionPosition = actualDivitionPosition - (CGFloat(subdivition) * subdivitionHeight)
-                sliderDivitionsPositions.append(actualSubdivitionPosition)
+                sliderSubdivitionsPositions.append(actualSubdivitionPosition)
                 
                 let subdivitionPath = UIBezierPath()
                 subdivitionPath.move(to: CGPoint(x: sliderCenterXPosition - subdivitionLenght, y: actualSubdivitionPosition))
@@ -162,7 +165,9 @@ class ViewController: UIViewController {
         
         var timePosition: CGFloat = position
         
-        var sliderDivitionsPositionsSorted = sliderDivitionsPositions.sorted()
+        let divitionsArray = (sliderDivitionsPositions + sliderSubdivitionsPositions).sorted()
+        
+        var sliderDivitionsPositionsSorted = divitionsArray
         
         sliderDivitionsPositionsSorted.insert(0, at: 0)
         sliderDivitionsPositionsSorted.insert(sliderView.frame.height, at: sliderDivitionsPositionsSorted.count - 1)
@@ -177,6 +182,12 @@ class ViewController: UIViewController {
         
         if closestDivition - variation ... closestDivition + variation ~= position {
             timePosition = closestDivition
+            if lastHapticFeedbackSendedForValue != closestDivition {
+                sliderDivitionsPositions.contains(closestDivition) ? sendHapticFeedback(intensity: .strong) : sendHapticFeedback(intensity: .light)
+                
+                lastHapticFeedbackSendedForValue = closestDivition
+            }
+            
         }
         
         timePosition = abs(timePosition - sliderView.frame.height)
