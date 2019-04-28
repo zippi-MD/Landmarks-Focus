@@ -23,6 +23,8 @@ class ViewController: UIViewController {
     @IBOutlet weak var sliderView: UIView!
     @IBOutlet weak var timeLabel: UILabel!
     
+    let selectingTimeText = "Selecciona cuanto tiempo deseas concentrarte..."
+    
     var userIsMovingSlider: Bool = false
     
     var sliderDivitionsPositions = [CGFloat]()
@@ -39,6 +41,10 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(true)
         setupSlider()
     }
     
@@ -62,6 +68,9 @@ class ViewController: UIViewController {
         lineLayer.lineWidth = lineWidth
         
         sliderView.layer.addSublayer(lineLayer)
+        
+        timeLabel.font = UIFont.boldSystemFont(ofSize: 20)
+        timeLabel.text = selectingTimeText
         
         
         let circleRadius = CGFloat(5)
@@ -194,7 +203,16 @@ class ViewController: UIViewController {
 
         let timeForPositionInSeconds = Int(CGFloat(timePosition) * CGFloat(maximumPossibleTimeInSeconds) / sliderView.frame.height)
         
-        timeLabel.text = secondsToHoursMinutesSeconds(seconds: timeForPositionInSeconds)
+        if timeForPositionInSeconds == 0 {
+            timeLabel.font = UIFont.boldSystemFont(ofSize: 20)
+            timeLabel.text = selectingTimeText
+        }
+        else {
+            timeLabel.font = UIFont.boldSystemFont(ofSize: 45)
+            timeLabel.text = secondsToHoursMinutesSeconds(seconds: timeForPositionInSeconds)
+        }
+        
+
         
         
         
