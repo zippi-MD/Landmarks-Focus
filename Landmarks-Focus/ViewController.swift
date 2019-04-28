@@ -33,6 +33,19 @@ class ViewController: UIViewController {
     
     var lastHapticFeedbackSendedForValue: CGFloat = 0
     
+    var timePosition: CGFloat = 0 {
+        didSet {
+            if timePosition != oldValue {
+                if sliderDivitionsPositions.contains(timePosition){
+                    sendHapticFeedback(intensity: .strong)
+                }
+                else if sliderSubdivitionsPositions.contains(timePosition){
+                    sendHapticFeedback(intensity: .light)
+                }
+            }
+        }
+    }
+    
     
     lazy var sliderArrow: UIImageView = {
         let view = UIImageView(image: UIImage(named: "slider-arrow")!)
@@ -180,7 +193,7 @@ class ViewController: UIViewController {
         let maximumPossibleTimeInSeconds:Int = 10_800
         let variation = CGFloat(3)
         
-        var timePosition: CGFloat = position
+        var selectedPosition: CGFloat = position
         
         let divitionsArray = (sliderDivitionsPositions + sliderSubdivitionsPositions).sorted()
         
@@ -198,17 +211,11 @@ class ViewController: UIViewController {
         }
         
         if closestDivition - variation ... closestDivition + variation ~= position {
-            timePosition = closestDivition
-            if lastHapticFeedbackSendedForValue != closestDivition {
-                sliderDivitionsPositions.contains(closestDivition) ? sendHapticFeedback(intensity: .strong) : sendHapticFeedback(intensity: .light)
-                
-                lastHapticFeedbackSendedForValue = closestDivition
-            }
-            
+            selectedPosition = closestDivition
         }
         
-        timePosition = abs(timePosition - sliderView.frame.height)
-
+        timePosition = abs(selectedPosition - sliderView.frame.height)
+        
         let timeForPositionInSeconds = Int(CGFloat(timePosition) * CGFloat(maximumPossibleTimeInSeconds) / sliderView.frame.height)
         
         if timeForPositionInSeconds == 0 {
