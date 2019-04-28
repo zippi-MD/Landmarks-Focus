@@ -13,7 +13,7 @@ enum appState {
 }
 
 enum feedbackResponseStreght {
-    case light, strong
+    case weak, medium, strong
 }
 
 class ViewController: UIViewController {
@@ -36,11 +36,14 @@ class ViewController: UIViewController {
     var timePosition: CGFloat = 0 {
         didSet {
             if timePosition != oldValue {
-                if sliderDivitionsPositions.contains(timePosition){
+                if timePosition == sliderView.frame.height || timePosition == 0{
                     sendHapticFeedback(intensity: .strong)
                 }
+                else if sliderDivitionsPositions.contains(timePosition){
+                    sendHapticFeedback(intensity: .medium)
+                }
                 else if sliderSubdivitionsPositions.contains(timePosition){
-                    sendHapticFeedback(intensity: .light)
+                    sendHapticFeedback(intensity: .weak)
                 }
             }
         }
@@ -247,9 +250,12 @@ class ViewController: UIViewController {
     
     func sendHapticFeedback(intensity: feedbackResponseStreght){
         switch intensity {
-        case .light:
+        case .weak:
             let generator = UISelectionFeedbackGenerator()
             generator.selectionChanged()
+        case .medium:
+            let generator = UIImpactFeedbackGenerator(style: .medium)
+            generator.impactOccurred()
         case .strong:
             let generator = UIImpactFeedbackGenerator(style: .heavy)
             generator.impactOccurred()
