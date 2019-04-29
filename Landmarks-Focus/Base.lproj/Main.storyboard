@@ -62,12 +62,30 @@
                                     <constraint firstAttribute="width" constant="70" id="DH8-hy-XQq"/>
                                 </constraints>
                             </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JDP-dK-Yck" userLabel="Landmark">
+                                <rect key="frame" x="15" y="170" width="230" height="387"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="statue_of_liberty" translatesAutoresizingMaskIntoConstraints="NO" id="nTf-F9-h3O">
+                                        <rect key="frame" x="0.0" y="2" width="230" height="380"/>
+                                    </imageView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="nTf-F9-h3O" firstAttribute="top" secondItem="JDP-dK-Yck" secondAttribute="top" constant="2" id="ByE-Yz-rd6"/>
+                                    <constraint firstAttribute="width" constant="230" id="OoS-9N-cSe"/>
+                                    <constraint firstAttribute="bottom" secondItem="nTf-F9-h3O" secondAttribute="bottom" constant="5" id="b0d-qy-yIx"/>
+                                    <constraint firstItem="nTf-F9-h3O" firstAttribute="leading" secondItem="JDP-dK-Yck" secondAttribute="leading" id="lI5-Cu-zR5"/>
+                                    <constraint firstAttribute="trailing" secondItem="nTf-F9-h3O" secondAttribute="trailing" id="tiP-cd-pfw"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="0zf-si-g0a" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="2s0-u8-DFS"/>
+                            <constraint firstItem="0zf-si-g0a" firstAttribute="top" secondItem="JDP-dK-Yck" secondAttribute="bottom" constant="10" id="IP2-vo-Ivj"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="oxY-aQ-yvq" secondAttribute="trailing" constant="20" id="QaK-Fv-SwM"/>
+                            <constraint firstItem="JDP-dK-Yck" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="15" id="bkx-jT-Tz3"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="0zf-si-g0a" secondAttribute="bottom" constant="30" id="fDj-cy-uls"/>
+                            <constraint firstItem="JDP-dK-Yck" firstAttribute="top" secondItem="90O-ar-d2n" secondAttribute="bottom" constant="10" id="n2B-4v-rI6"/>
                             <constraint firstItem="90O-ar-d2n" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="nkS-lb-wIs"/>
                             <constraint firstItem="0zf-si-g0a" firstAttribute="top" secondItem="oxY-aQ-yvq" secondAttribute="bottom" constant="25" id="rdR-ry-NdJ"/>
                             <constraint firstItem="oxY-aQ-yvq" firstAttribute="top" secondItem="90O-ar-d2n" secondAttribute="bottom" constant="25" id="tkE-GR-ieP"/>
@@ -76,6 +94,8 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
+                        <outlet property="landmarkImage" destination="nTf-F9-h3O" id="lVs-Kd-fz7"/>
+                        <outlet property="landmarkView" destination="JDP-dK-Yck" id="sjG-zN-EJi"/>
                         <outlet property="sliderView" destination="oxY-aQ-yvq" id="7Ky-Wj-4Bk"/>
                         <outlet property="startButtonView" destination="0zf-si-g0a" id="r5E-4W-Ml2"/>
                         <outlet property="timeLabel" destination="xuP-rn-xBP" id="1IG-TK-b4h"/>
@@ -86,4 +106,7 @@
             <point key="canvasLocation" x="136.80000000000001" y="125.4872563718141"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="statue_of_liberty" width="390" height="1018"/>
+    </resources>
 </document>
