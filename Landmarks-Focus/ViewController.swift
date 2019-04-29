@@ -24,6 +24,10 @@ class ViewController: UIViewController {
     @IBOutlet weak var timeLabel: UILabel!
     @IBOutlet weak var startButtonView: UIView!
     
+    @IBOutlet weak var landmarkView: UIView!
+    @IBOutlet weak var landmarkImage: UIImageView!
+    
+    
     let selectingTimeText = "Selecciona cuanto tiempo deseas concentrarte..."
     
     var userIsMovingSlider: Bool = false

@@ -95,6 +95,8 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
+                        <outlet property="landmarkImage" destination="nTf-F9-h3O" id="lVs-Kd-fz7"/>
+                        <outlet property="landmarkView" destination="JDP-dK-Yck" id="sjG-zN-EJi"/>
                         <outlet property="sliderView" destination="oxY-aQ-yvq" id="7Ky-Wj-4Bk"/>
                         <outlet property="startButtonView" destination="0zf-si-g0a" id="r5E-4W-Ml2"/>
                         <outlet property="timeLabel" destination="xuP-rn-xBP" id="1IG-TK-b4h"/>
