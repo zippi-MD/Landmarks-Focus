@@ -20,6 +20,8 @@ class ViewController: UIViewController {
 
     var appState: appState = .selectingTime
     
+    var landmarks = ["pyramid", "china", "sided_tower", "statue_of_liberty", "eiffel_tower", "big_ben"]
+    
     @IBOutlet weak var sliderView: UIView!
     @IBOutlet weak var timeLabel: UILabel!
     @IBOutlet weak var startButtonView: UIView!
@@ -50,6 +52,8 @@ class ViewController: UIViewController {
                     sendHapticFeedback(intensity: .weak)
                 }
             }
+            
+            setLandmarkImage(divition: getActualDivition(forTimePosition: timePosition))
         }
     }
     
@@ -174,6 +178,24 @@ class ViewController: UIViewController {
             }
         }
         
+    }
+    
+    func setLandmarkImage(divition index: Int){
+        landmarkImage.image = UIImage(named: landmarks[index])
+    }
+    
+    func getActualDivition(forTimePosition position: CGFloat) -> Int{
+        
+        var index: Int = 0
+        
+        while position > sliderDivitionsPositions[index] {
+            index += 1
+            if index == sliderDivitionsPositions.count {
+                return index
+            }
+        }
+        
+        return index
     }
     
     func moveSliderArrowTo(position: CGPoint){

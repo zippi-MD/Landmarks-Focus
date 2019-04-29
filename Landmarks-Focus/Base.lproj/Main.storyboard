@@ -65,13 +65,12 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JDP-dK-Yck" userLabel="Landmark">
                                 <rect key="frame" x="15" y="170" width="230" height="387"/>
                                 <subviews>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="nTf-F9-h3O">
-                                        <rect key="frame" x="0.0" y="5" width="230" height="377"/>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="statue_of_liberty" translatesAutoresizingMaskIntoConstraints="NO" id="nTf-F9-h3O">
+                                        <rect key="frame" x="0.0" y="2" width="230" height="380"/>
                                     </imageView>
                                 </subviews>
-                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstItem="nTf-F9-h3O" firstAttribute="top" secondItem="JDP-dK-Yck" secondAttribute="top" constant="5" id="ByE-Yz-rd6"/>
+                                    <constraint firstItem="nTf-F9-h3O" firstAttribute="top" secondItem="JDP-dK-Yck" secondAttribute="top" constant="2" id="ByE-Yz-rd6"/>
                                     <constraint firstAttribute="width" constant="230" id="OoS-9N-cSe"/>
                                     <constraint firstAttribute="bottom" secondItem="nTf-F9-h3O" secondAttribute="bottom" constant="5" id="b0d-qy-yIx"/>
                                     <constraint firstItem="nTf-F9-h3O" firstAttribute="leading" secondItem="JDP-dK-Yck" secondAttribute="leading" id="lI5-Cu-zR5"/>
@@ -107,4 +106,7 @@
             <point key="canvasLocation" x="136.80000000000001" y="125.4872563718141"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="statue_of_liberty" width="390" height="1018"/>
+    </resources>
 </document>
