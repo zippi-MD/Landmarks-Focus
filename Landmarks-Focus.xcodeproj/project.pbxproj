@@ -12,6 +12,8 @@
 		D41B8536227281DC004C5916 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D41B8534227281DC004C5916 /* Main.storyboard */; };
 		D41B8538227281DD004C5916 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D41B8537227281DD004C5916 /* Assets.xcassets */; };
 		D41B853B227281DD004C5916 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D41B8539227281DD004C5916 /* LaunchScreen.storyboard */; };
+		D4A8DBDE227D199D00627361 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A8DBDD227D199D00627361 /* Colors.swift */; };
+		D4A8DBE0227DE33200627361 /* Background.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A8DBDF227DE33200627361 /* Background.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +24,8 @@
 		D41B8537227281DD004C5916 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D41B853A227281DD004C5916 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D41B853C227281DD004C5916 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D4A8DBDD227D199D00627361 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
+		D4A8DBDF227DE33200627361 /* Background.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Background.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +64,8 @@
 				D41B8537227281DD004C5916 /* Assets.xcassets */,
 				D41B8539227281DD004C5916 /* LaunchScreen.storyboard */,
 				D41B853C227281DD004C5916 /* Info.plist */,
+				D4A8DBDD227D199D00627361 /* Colors.swift */,
+				D4A8DBDF227DE33200627361 /* Background.swift */,
 			);
 			path = "Landmarks-Focus";
 			sourceTree = "<group>";
@@ -136,7 +142,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				D41B8533227281DC004C5916 /* ViewController.swift in Sources */,
+				D4A8DBDE227D199D00627361 /* Colors.swift in Sources */,
 				D41B8531227281DC004C5916 /* AppDelegate.swift in Sources */,
+				D4A8DBE0227DE33200627361 /* Background.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
