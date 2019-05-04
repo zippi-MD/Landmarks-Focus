@@ -34,6 +34,11 @@ class ViewController: UIViewController {
     
     var userIsMovingSlider: Bool = false
     
+    var backgroundGradientLayer: CAGradientLayer = {
+        let gradientLayer = CAGradientLayer()
+        return gradientLayer
+    }()
+    
     var sliderDivitionsPositions = [CGFloat]()
     var sliderSubdivitionsPositions = [CGFloat]()
     
@@ -78,10 +83,18 @@ class ViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
         setupSlider()
+        setUpTimeView()
+        setupBackground()
+    }
+    
+    func setUpTimeView(){
+        timeLabel.textColor = UIColor.Text.light
     }
     
     func setupSlider(){
         sliderView.addSubview(sliderArrow)
+        sliderArrow.image = sliderArrow.image?.withRenderingMode(.alwaysTemplate)
+        sliderArrow.tintColor = UIColor.Slider.light
         sliderArrow.centerXAnchor.constraint(equalTo: sliderView.centerXAnchor, constant: sliderArrow.frame.width / 4).isActive = true
         sliderArrow.centerYAnchor.constraint(equalTo: sliderView.bottomAnchor).isActive = true
         
@@ -96,7 +109,7 @@ class ViewController: UIViewController {
         let lineLayer = CAShapeLayer()
         
         lineLayer.path = linePath.cgPath
-        lineLayer.strokeColor = UIColor.black.cgColor
+        lineLayer.strokeColor = UIColor.Slider.light.cgColor
         lineLayer.lineWidth = lineWidth
         
         sliderView.layer.addSublayer(lineLayer)
@@ -111,9 +124,9 @@ class ViewController: UIViewController {
         let topCircleLayer = CAShapeLayer()
         
         topCircleLayer.path = circlePath.cgPath
-        topCircleLayer.strokeColor = UIColor.black.cgColor
+        topCircleLayer.strokeColor = UIColor.Slider.light.cgColor
         topCircleLayer.lineWidth = 3
-        topCircleLayer.fillColor = UIColor.black.cgColor
+        topCircleLayer.fillColor = UIColor.Slider.light.cgColor
         
         sliderView.layer.addSublayer(topCircleLayer)
         
@@ -122,9 +135,9 @@ class ViewController: UIViewController {
         let bottomCircleLayer = CAShapeLayer()
         
         bottomCircleLayer.path = bottomCirclePath.cgPath
-        bottomCircleLayer.strokeColor = UIColor.black.cgColor
+        bottomCircleLayer.strokeColor = UIColor.Slider.light.cgColor
         bottomCircleLayer.lineWidth = 3
-        bottomCircleLayer.fillColor = UIColor.black.cgColor
+        bottomCircleLayer.fillColor = UIColor.Slider.light.cgColor
         
         sliderView.layer.addSublayer(bottomCircleLayer)
         
@@ -150,7 +163,7 @@ class ViewController: UIViewController {
             
             let divitionLayer = CAShapeLayer()
             divitionLayer.path = sliderDivitionPath.cgPath
-            divitionLayer.strokeColor = UIColor.black.cgColor
+            divitionLayer.strokeColor = UIColor.Slider.light.cgColor
             divitionLayer.lineWidth = lineWidth
             
             sliderView.layer.addSublayer(divitionLayer)
@@ -170,7 +183,7 @@ class ViewController: UIViewController {
                 
                 let subdivitionLayer = CAShapeLayer()
                 subdivitionLayer.path = subdivitionPath.cgPath
-                subdivitionLayer.strokeColor = UIColor.black.cgColor
+                subdivitionLayer.strokeColor = UIColor.Slider.light.cgColor
                 subdivitionLayer.lineWidth = subdivitionLineWidth
                 
                 sliderView.layer.addSublayer(subdivitionLayer)
