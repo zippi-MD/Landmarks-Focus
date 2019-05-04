@@ -63,20 +63,6 @@ class ViewController: UIViewController {
         landmarkImage.image = UIImage(named: landmarks[index])
     }
     
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-
-        if let touch = touches.first {
-            let location = touch.location(in: view)
-
-            if appState == .selectingTime && slider.arrow.bounds.contains(slider.arrow.convert(location, from: view)){
-                slider.userIsMovingSlider = true
-            }
-
-        }
-    }
-
-
-
 
 }
 
