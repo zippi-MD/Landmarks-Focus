@@ -10,4 +10,5 @@ import Foundation
 
 protocol SliderPositionDelegate {
     func sliderChangedPositionTo(seconds: Int)
+    func sliderChangedToDivition(divition: Int)
 }

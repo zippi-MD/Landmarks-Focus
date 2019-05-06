@@ -37,6 +37,10 @@ struct Slider {
     
     var timePosition: CGFloat = 0 {
         didSet {
+            
+            let actualDivition = getActualDivition(forTimePosition: timePosition)
+            delegate?.sliderChangedToDivition(divition: actualDivition)
+            
             if timePosition != oldValue {
                 if timePosition == container.frame.height || timePosition == 0{
                     sendHapticFeedback(intensity: .strong)

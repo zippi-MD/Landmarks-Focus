@@ -31,6 +31,13 @@ extension ViewController: SliderPositionDelegate {
                     timeLabel.text = secondsToHoursMinutesSeconds(seconds: seconds)
                 }
     }
+    
+    
+    func sliderChangedToDivition(divition: Int) {
+        
+        landmarkImage.image = UIImage(named: landmarks[divition])
+        
+    }
 }
 
 

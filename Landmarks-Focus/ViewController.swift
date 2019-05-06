@@ -59,9 +59,7 @@ class ViewController: UIViewController {
         timeLabel.textColor = UIColor.Text.light
     }
     
-    func setLandmarkImage(divition index: Int){
-        landmarkImage.image = UIImage(named: landmarks[index])
-    }
+    
     
 
 }
