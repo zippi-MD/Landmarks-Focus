@@ -7,19 +7,20 @@
 //
 import UIKit
 
-extension ViewController {
-    
-    func setBackgroundGradientColorsTo(_ colors: [CGColor]){
-        backgroundGradientLayer.colors = colors
+struct Background {
+
+    fileprivate var backgroundLayer: CAGradientLayer = {
+       return CAGradientLayer()
+    }()
+
+    func setupBackgroundForView(_ view: UIView, colors: [CGColor]){
+        backgroundLayer.colors = colors
+
+        backgroundLayer.startPoint = CGPoint(x: 0.5, y: 0.0)
+        backgroundLayer.endPoint = CGPoint(x: 0.5, y: 1.0)
+        backgroundLayer.frame = view.bounds
+
+        view.layer.insertSublayer(backgroundLayer, at: 0)
     }
-    
-    func setupBackground(){
-        setBackgroundGradientColorsTo(backgroundColors[0].map({$0.cgColor}))
-        
-        backgroundGradientLayer.startPoint = CGPoint(x: 0.5, y: 0.0)
-        backgroundGradientLayer.endPoint = CGPoint(x: 0.5, y: 1.0)
-        backgroundGradientLayer.frame = view.bounds
-        
-        view.layer.insertSublayer(backgroundGradientLayer, at: 0)
-    }
+
 }

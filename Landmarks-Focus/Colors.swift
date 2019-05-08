@@ -24,6 +24,8 @@ extension UIColor {
     struct Background {
         static let DeepBlue = UIColor(netHex: 0x0083B0)
         static let LightBlue = UIColor(netHex: 0x00B4DB)
+
+        static let blue = [LightBlue, DeepBlue]
     }
     
     struct Slider {

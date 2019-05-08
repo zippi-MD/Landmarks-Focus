@@ -34,9 +34,12 @@ class ViewController: UIViewController {
     }()
     
     var slider: Slider!
+    var background: Background!
     
     override func viewDidLoad() {
-        slider = Slider(containter: sliderView)
+        slider = Slider(container: sliderView)
+        background = Background()
+
         slider.delegate = self
     }
     
@@ -51,8 +54,9 @@ class ViewController: UIViewController {
         super.viewDidAppear(true)
         
         slider.setup()
+        background.setupBackgroundForView(view, colors: UIColor.Background.blue.map{$0.cgColor})
+
         setUpTimeView()
-        setupBackground()
     }
     
     func setUpTimeView(){

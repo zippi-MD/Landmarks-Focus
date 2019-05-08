@@ -12,8 +12,8 @@ import UIKit
 struct Slider {
     
     
-    init(containter: UIView) {
-        self.container = containter
+    init(container: UIView) {
+        self.container = container
         
         sliderDivitionsPositions = [CGFloat]()
         sliderSubdivitionsPositions = [CGFloat]()
