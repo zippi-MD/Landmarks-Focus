@@ -14,6 +14,12 @@
 		D41B853B227281DD004C5916 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D41B8539227281DD004C5916 /* LaunchScreen.storyboard */; };
 		D4A8DBDE227D199D00627361 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A8DBDD227D199D00627361 /* Colors.swift */; };
 		D4A8DBE0227DE33200627361 /* Background.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A8DBDF227DE33200627361 /* Background.swift */; };
+		D4A8DBE2227E094E00627361 /* Slider.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A8DBE1227E094E00627361 /* Slider.swift */; };
+		D4A8DBE5227E10E300627361 /* Time.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A8DBE4227E10E300627361 /* Time.swift */; };
+		D4A8DBE8227E129B00627361 /* SliderPositionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A8DBE7227E129B00627361 /* SliderPositionDelegate.swift */; };
+		D4A8DBEA227E144C00627361 /* ViewController+SliderPositionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A8DBE9227E144C00627361 /* ViewController+SliderPositionDelegate.swift */; };
+		D4A8DBEC227E168600627361 /* HapticFeedback.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A8DBEB227E168600627361 /* HapticFeedback.swift */; };
+		D4A8DBEE227E17E400627361 /* ViewController+HandleTouches.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A8DBED227E17E400627361 /* ViewController+HandleTouches.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +32,12 @@
 		D41B853C227281DD004C5916 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D4A8DBDD227D199D00627361 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		D4A8DBDF227DE33200627361 /* Background.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Background.swift; sourceTree = "<group>"; };
+		D4A8DBE1227E094E00627361 /* Slider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Slider.swift; sourceTree = "<group>"; };
+		D4A8DBE4227E10E300627361 /* Time.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Time.swift; sourceTree = "<group>"; };
+		D4A8DBE7227E129B00627361 /* SliderPositionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SliderPositionDelegate.swift; sourceTree = "<group>"; };
+		D4A8DBE9227E144C00627361 /* ViewController+SliderPositionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+SliderPositionDelegate.swift"; sourceTree = "<group>"; };
+		D4A8DBEB227E168600627361 /* HapticFeedback.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticFeedback.swift; sourceTree = "<group>"; };
+		D4A8DBED227E17E400627361 /* ViewController+HandleTouches.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+HandleTouches.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,8 +70,12 @@
 		D41B852F227281DC004C5916 /* Landmarks-Focus */ = {
 			isa = PBXGroup;
 			children = (
+				D4A8DBE6227E121A00627361 /* Slider */,
+				D4A8DBE3227E10D900627361 /* Utils */,
 				D41B8530227281DC004C5916 /* AppDelegate.swift */,
 				D41B8532227281DC004C5916 /* ViewController.swift */,
+				D4A8DBE9227E144C00627361 /* ViewController+SliderPositionDelegate.swift */,
+				D4A8DBED227E17E400627361 /* ViewController+HandleTouches.swift */,
 				D41B8534227281DC004C5916 /* Main.storyboard */,
 				D41B8537227281DD004C5916 /* Assets.xcassets */,
 				D41B8539227281DD004C5916 /* LaunchScreen.storyboard */,
@@ -68,6 +84,24 @@
 				D4A8DBDF227DE33200627361 /* Background.swift */,
 			);
 			path = "Landmarks-Focus";
+			sourceTree = "<group>";
+		};
+		D4A8DBE3227E10D900627361 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				D4A8DBE4227E10E300627361 /* Time.swift */,
+				D4A8DBEB227E168600627361 /* HapticFeedback.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		D4A8DBE6227E121A00627361 /* Slider */ = {
+			isa = PBXGroup;
+			children = (
+				D4A8DBE1227E094E00627361 /* Slider.swift */,
+				D4A8DBE7227E129B00627361 /* SliderPositionDelegate.swift */,
+			);
+			path = Slider;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -141,10 +175,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D4A8DBE5227E10E300627361 /* Time.swift in Sources */,
 				D41B8533227281DC004C5916 /* ViewController.swift in Sources */,
+				D4A8DBEE227E17E400627361 /* ViewController+HandleTouches.swift in Sources */,
+				D4A8DBE8227E129B00627361 /* SliderPositionDelegate.swift in Sources */,
+				D4A8DBEA227E144C00627361 /* ViewController+SliderPositionDelegate.swift in Sources */,
 				D4A8DBDE227D199D00627361 /* Colors.swift in Sources */,
+				D4A8DBEC227E168600627361 /* HapticFeedback.swift in Sources */,
 				D41B8531227281DC004C5916 /* AppDelegate.swift in Sources */,
 				D4A8DBE0227DE33200627361 /* Background.swift in Sources */,
+				D4A8DBE2227E094E00627361 /* Slider.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -12,10 +12,6 @@ enum appState {
     case selectingTime, countdown
 }
 
-enum feedbackResponseStreght {
-    case weak, medium, strong
-}
-
 class ViewController: UIViewController {
 
     var appState: appState = .selectingTime
@@ -32,45 +28,19 @@ class ViewController: UIViewController {
     
     let selectingTimeText = "Selecciona cuanto tiempo deseas concentrarte..."
     
-    var userIsMovingSlider: Bool = false
-    
     var backgroundGradientLayer: CAGradientLayer = {
         let gradientLayer = CAGradientLayer()
         return gradientLayer
     }()
     
-    var sliderDivitionsPositions = [CGFloat]()
-    var sliderSubdivitionsPositions = [CGFloat]()
-    
-    var lastHapticFeedbackSendedForValue: CGFloat = 0
-    
-    var timePosition: CGFloat = 0 {
-        didSet {
-            if timePosition != oldValue {
-                if timePosition == sliderView.frame.height || timePosition == 0{
-                    sendHapticFeedback(intensity: .strong)
-                }
-                else if sliderDivitionsPositions.contains(timePosition){
-                    sendHapticFeedback(intensity: .medium)
-                }
-                else if sliderSubdivitionsPositions.contains(timePosition){
-                    sendHapticFeedback(intensity: .weak)
-                }
-            }
-            
-            setLandmarkImage(divition: getActualDivition(forTimePosition: timePosition))
-        }
-    }
-    
-    
-    lazy var sliderArrow: UIImageView = {
-        let view = UIImageView(image: UIImage(named: "slider-arrow")!)
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
+    var slider: Slider!
+    var background: Background!
     
     override func viewDidLoad() {
-        super.viewDidLoad()
+        slider = Slider(container: sliderView)
+        background = Background()
+
+        slider.delegate = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -82,265 +52,19 @@ class ViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
-        setupSlider()
+        
+        slider.setup()
+        background.setupBackgroundForView(view, colors: UIColor.Background.blue.map{$0.cgColor})
+
         setUpTimeView()
-        setupBackground()
     }
     
     func setUpTimeView(){
         timeLabel.textColor = UIColor.Text.light
     }
     
-    func setupSlider(){
-        sliderView.addSubview(sliderArrow)
-        sliderArrow.image = sliderArrow.image?.withRenderingMode(.alwaysTemplate)
-        sliderArrow.tintColor = UIColor.Slider.light
-        sliderArrow.centerXAnchor.constraint(equalTo: sliderView.centerXAnchor, constant: sliderArrow.frame.width / 4).isActive = true
-        sliderArrow.centerYAnchor.constraint(equalTo: sliderView.bottomAnchor).isActive = true
-        
-        let linePath = UIBezierPath()
-        let lineWidth = CGFloat(5)
-        
-        let sliderCenterXPosition = sliderView.frame.width / 2 - lineWidth / 2
-        
-        linePath.move(to: CGPoint(x: sliderCenterXPosition, y: 0))
-        linePath.addLine(to: CGPoint(x: sliderCenterXPosition, y: sliderView.frame.height))
-        
-        let lineLayer = CAShapeLayer()
-        
-        lineLayer.path = linePath.cgPath
-        lineLayer.strokeColor = UIColor.Slider.light.cgColor
-        lineLayer.lineWidth = lineWidth
-        
-        sliderView.layer.addSublayer(lineLayer)
-        
-        timeLabel.font = UIFont.boldSystemFont(ofSize: 20)
-        timeLabel.text = selectingTimeText
-        
-        
-        let circleRadius = CGFloat(5)
-        let circlePath = UIBezierPath(arcCenter: CGPoint(x: sliderCenterXPosition, y: 0), radius: circleRadius, startAngle: CGFloat(0), endAngle: CGFloat(Double.pi * 2), clockwise: true)
-        
-        let topCircleLayer = CAShapeLayer()
-        
-        topCircleLayer.path = circlePath.cgPath
-        topCircleLayer.strokeColor = UIColor.Slider.light.cgColor
-        topCircleLayer.lineWidth = 3
-        topCircleLayer.fillColor = UIColor.Slider.light.cgColor
-        
-        sliderView.layer.addSublayer(topCircleLayer)
-        
-        let bottomCirclePath = UIBezierPath(arcCenter: CGPoint(x: sliderCenterXPosition, y: sliderView.frame.height), radius: circleRadius, startAngle: CGFloat(0), endAngle: CGFloat(Double.pi * 2), clockwise: true)
-        
-        let bottomCircleLayer = CAShapeLayer()
-        
-        bottomCircleLayer.path = bottomCirclePath.cgPath
-        bottomCircleLayer.strokeColor = UIColor.Slider.light.cgColor
-        bottomCircleLayer.lineWidth = 3
-        bottomCircleLayer.fillColor = UIColor.Slider.light.cgColor
-        
-        sliderView.layer.addSublayer(bottomCircleLayer)
-        
-        
-        let numberOfDivitionsInSlider = 6
-        let divitionHeight = sliderView.frame.height / CGFloat(numberOfDivitionsInSlider)
-        let divitionLenght = CGFloat(10)
-        
-        let numberOfSubdivitionsInSliderDivition = 2
-        let subdivitionHeight = divitionHeight / CGFloat(numberOfSubdivitionsInSliderDivition)
-        let subdivitionLenght = CGFloat(5)
-        let subdivitionLineWidth = CGFloat(2.5)
-        
-        
-        for divition in 1..<numberOfDivitionsInSlider {
-            let sliderDivitionPath = UIBezierPath()
-            let divitionHeightPosition = CGFloat(divition) * divitionHeight
-            
-            sliderDivitionsPositions.append(divitionHeightPosition)
-            
-            sliderDivitionPath.move(to: CGPoint(x: sliderCenterXPosition - divitionLenght, y: divitionHeightPosition))
-            sliderDivitionPath.addLine(to: CGPoint(x: sliderCenterXPosition + divitionLenght, y: divitionHeightPosition))
-            
-            let divitionLayer = CAShapeLayer()
-            divitionLayer.path = sliderDivitionPath.cgPath
-            divitionLayer.strokeColor = UIColor.Slider.light.cgColor
-            divitionLayer.lineWidth = lineWidth
-            
-            sliderView.layer.addSublayer(divitionLayer)
-            
-        }
-        
-        for divition in 0..<numberOfDivitionsInSlider {
-            let actualDivitionPosition = sliderView.frame.height - (CGFloat(divition) * divitionHeight)
-            
-            for subdivition in 1...numberOfSubdivitionsInSliderDivition {
-                let actualSubdivitionPosition = actualDivitionPosition - (CGFloat(subdivition) * subdivitionHeight)
-                sliderSubdivitionsPositions.append(actualSubdivitionPosition)
-                
-                let subdivitionPath = UIBezierPath()
-                subdivitionPath.move(to: CGPoint(x: sliderCenterXPosition - subdivitionLenght, y: actualSubdivitionPosition))
-                subdivitionPath.addLine(to: CGPoint(x: sliderCenterXPosition + subdivitionLenght, y: actualSubdivitionPosition))
-                
-                let subdivitionLayer = CAShapeLayer()
-                subdivitionLayer.path = subdivitionPath.cgPath
-                subdivitionLayer.strokeColor = UIColor.Slider.light.cgColor
-                subdivitionLayer.lineWidth = subdivitionLineWidth
-                
-                sliderView.layer.addSublayer(subdivitionLayer)
-                
-            }
-        }
-        
-    }
     
-    func setLandmarkImage(divition index: Int){
-        landmarkImage.image = UIImage(named: landmarks[index])
-    }
     
-    func getActualDivition(forTimePosition position: CGFloat) -> Int{
-        
-        var index: Int = 0
-        
-        while position > sliderDivitionsPositions[index] {
-            index += 1
-            if index == sliderDivitionsPositions.count {
-                return index
-            }
-        }
-        
-        return index
-    }
-    
-    func moveSliderArrowTo(position: CGPoint){
-        
-        let sliderCenterCoordinates = sliderView.convert(sliderView.center, from: view)
-        
-        let centerXPosition = sliderCenterCoordinates.x + sliderArrow.frame.width / 4
-        let centerYPosition: CGFloat
-        
-        switch position.y {
-        case ..<0:
-            centerYPosition = 0
-        case ..<sliderView.frame.height:
-            centerYPosition = position.y
-        default:
-            centerYPosition = sliderView.frame.height
-        }
-        
-        calculateTimeForSliderArrow(position: centerYPosition)
-        sliderArrow.center = CGPoint(x: centerXPosition, y: centerYPosition)
-    }
-    
-    func calculateTimeForSliderArrow(position: CGFloat){
-        let maximumPossibleTimeInSeconds:Int = 10_800
-        let variation = CGFloat(3)
-        
-        var selectedPosition: CGFloat = position
-        
-        let divitionsArray = (sliderDivitionsPositions + sliderSubdivitionsPositions).sorted()
-        
-        var sliderDivitionsPositionsSorted = divitionsArray
-        
-        sliderDivitionsPositionsSorted.insert(0, at: 0)
-        sliderDivitionsPositionsSorted.insert(sliderView.frame.height, at: sliderDivitionsPositionsSorted.count - 1)
-        
-        var closestDivition: CGFloat = sliderDivitionsPositionsSorted[0]
-        
-        for divition in sliderDivitionsPositionsSorted {
-            if abs(position - divition) < abs(position - closestDivition){
-                closestDivition = divition
-            }
-        }
-        
-        if closestDivition - variation ... closestDivition + variation ~= position {
-            selectedPosition = closestDivition
-        }
-        
-        timePosition = abs(selectedPosition - sliderView.frame.height)
-        
-        let timeForPositionInSeconds = Int(CGFloat(timePosition) * CGFloat(maximumPossibleTimeInSeconds) / sliderView.frame.height)
-        
-        if timeForPositionInSeconds == 0 {
-            
-            UIView.animate(withDuration: 0.2) {
-                self.startButtonView.alpha = 0
-            }
-            
-            timeLabel.font = UIFont.boldSystemFont(ofSize: 20)
-            timeLabel.text = selectingTimeText
-        }
-        else {
-            
-            startButtonView.isHidden = false
-            
-            UIView.animate(withDuration: 0.2) {
-                self.startButtonView.alpha = 1
-            }
-            
-            timeLabel.font = UIFont.boldSystemFont(ofSize: 45)
-            timeLabel.text = secondsToHoursMinutesSeconds(seconds: timeForPositionInSeconds)
-        }
-        
-
-        
-        
-        
-    }
-    
-    func sendHapticFeedback(intensity: feedbackResponseStreght){
-        switch intensity {
-        case .weak:
-            let generator = UISelectionFeedbackGenerator()
-            generator.selectionChanged()
-        case .medium:
-            let generator = UIImpactFeedbackGenerator(style: .medium)
-            generator.impactOccurred()
-        case .strong:
-            let generator = UIImpactFeedbackGenerator(style: .heavy)
-            generator.impactOccurred()
-        }
-    }
-    
-    func secondsToHoursMinutesSeconds (seconds : Int) -> String {
-        let formatter = DateComponentsFormatter()
-        formatter.allowedUnits = [.hour, .minute, .second]
-        formatter.unitsStyle = .positional
-        
-        return  formatter.string(from: TimeInterval(seconds))!
-
-    }
-    
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        
-        if let touch = touches.first {
-            let location = touch.location(in: view)
-            
-            if appState == .selectingTime && sliderArrow.bounds.contains(sliderArrow.convert(location, from: view)){
-                userIsMovingSlider = true
-            }
-            
-        }
-    }
-    
-    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-        if let touch = touches.first, appState == .selectingTime, userIsMovingSlider {
-            let location = touch.location(in: sliderView)
-            moveSliderArrowTo(position: location)
-        }
-    }
-    
-    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        if appState == .selectingTime {
-            userIsMovingSlider = false
-        }
-    }
-    
-    override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
-        if appState == .selectingTime {
-            userIsMovingSlider = false
-        }
-    }
-
 
 }
 
